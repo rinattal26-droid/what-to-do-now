@@ -111,12 +111,24 @@
 <script>
     const activities = [
         { title: "בניית מגדל קוביות ענק", desc: "לנסות לבנות מגדל גבוה ככל האפשר לפני שהוא נופל", materials: "קוביות משחק", time: "15 דקות", category: "home" },
-        { title: "ציור גואש חופשי", desc: "להוציא צבעים ולצייר על דף גדול בלי הגבלה", materials: "צבעי גואש ודפים", time: "30 דקות", category: "art" },
-        { title: "מסלול מכשולים בסלון", desc: "לארגן כריות ושרפרפים ולעבור אותם בלי לגעת ברצפה", materials: "כריות ושמיכות", time: "20 דקות", category: "energy" },
-        { title: "טיול קצר שכונתי", desc: "לצאת לסיבוב קצר לחפש חתולים או פרחים מעניינים", materials: "עגלות או נעלי הליכה", time: "25 דקות", category: "out" },
-        { title: "משחק התאמת צורות שקט", desc: "לשבת בשקט על השטיח ולסדר משחקי התאמה", materials: "משחק הרכבה", time: "15 דקות", category: "quiet" },
         { title: "משחק מחבואים בבית", desc: "למצא מקומות מחבוא יצירתיים בתוך הבית", materials: "ללא צורך בציוד", time: "15 דקות", category: "home" },
-        { title: "בועות סבון בחצר", desc: "לנפח בועות סבון גדולות ולנסות לתפוס אותן", materials: "ערכת בועות סבון", time: "20 דקות", category: "out" }
+        { title: "הכנת אוהל סדינים בסלון", desc: "למתוח סדינים בין הכסאות והספה וליצור מחנה פרטי", materials: "סדינים וכסאות", time: "25 דקות", category: "home" },
+        
+        { title: "ציור גואש חופשי", desc: "להוציא צבעים ולצייר על דף גדול בלי הגבלה", materials: "צבעי גואש ודפים", time: "30 דקות", category: "art" },
+        { title: "יצירה בלגו או פלסטלינה", desc: "להמציא דמויות או מבנים מיוחדים מחומרים שיש בבית", materials: "לגו או פלסטלינה", time: "20 דקות", category: "art" },
+        { title: "גיזור הדבקה ויצירת ספר קומיקס", desc: "לקפל דפים ולספר סיפור עם ציורים וגזירים", materials: "דפים, מספריים ודבק", time: "30 דקות", category: "art" },
+
+        { title: "מסלול מכשולים בסלון", desc: "לארגן כריות ושרפרפים ולעבור אותם בלי לגעת ברצפה", materials: "כריות ושמיכות", time: "20 דקות", category: "energy" },
+        { title: "ריקוד השירים האהובים", desc: "לשים מוזיקה קצבית ולקפוץ ולרקוד בכל הכוח", materials: "רמקול או טלפון שמע", time: "15 דקות", category: "energy" },
+        { title: "משחק תפוס אותי / מרוץ שליחים", desc: "לרוץ מנקודה לנקודה בבית לפי מסלול מוגדר", materials: "ללא צורך בציוד", time: "15 דקות", category: "energy" },
+
+        { title: "טיול קצר שכונתי", desc: "לצאת לסיבוב קצר לחפש חתולים או פרחים מעניינים", materials: "עגלות או נעלי הליכה", time: "25 דקות", category: "out" },
+        { title: "בועות סבון בחצר", desc: "לנפח בועות סבון גדולות ולנסות לתפוס אותן", materials: "ערכת בועות סבון", time: "20 דקות", category: "out" },
+        { title: "איסוף אבנים וענפים מיוחדים", desc: "לצאת לחצר או לגינה הציבורית ולאסוף פריטי טבע מעניינים", materials: "שקיות קטנות לאיסוף", time: "20 דקות", category: "out" },
+
+        { title: "משחק התאמת צורות שקט", desc: "לשבת בשקט על השטיח ולסדר משחקי התאמה", materials: "משחק הרכבה", time: "15 דקות", category: "quiet" },
+        { title: "דפדוף והקראת סיפורים משותפת", desc: "להתכרבל ולעיין בספרי הילדים האהובים", materials: "ספרים מהמדף", time: "20 דקות", category: "quiet" },
+        { title: "הרכבת פאזל רצפה", desc: ח"לשבת יחד ולהרכיב פאזל גדול על השטיח", materials: "פאזל", time: "25 דקות", category: "quiet" }
     ];
 
     let currentCategory = 'all';
@@ -153,7 +165,7 @@
             const shuffled = [...filtered].sort(() => 0.5 - Math.random());
             const selectedItems = shuffled.slice(0, howMany);
 
-            let htmlContent = "<h3 style='margin-top:0; color:#333;'>✨ הנה 3 אפשרויות בשבילך:</h3>";
+            let htmlContent = `<h3 style='margin-top:0; color:#333;'>✨ הנה ${howMany} אפשרויות בשבילך:</h3>`;
             selectedItems.forEach((item, index) => {
                 htmlContent += `
                     <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd;">
