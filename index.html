@@ -3,80 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מה עושים עכשיו? - קוביית ההחלטות</title>
+    <title>מה עושים עכשיו?</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
-            margin: 0;
-            padding: 20px;
             text-align: center;
-        }
-        h1 {
-            color: #333;
+            padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
             background: white;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        .filters {
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-        .filter-btn {
-            padding: 8px 14px;
-            border: 1px solid #ddd;
-            background: #fff;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .filter-btn.active {
-            background: #007bff;
-            color: white;
-            border-color: #007bff;
-        }
-        .dice-section {
-            margin: 30px 0;
-            cursor: pointer;
-        }
-        .dice {
-            font-size: 60px;
-            display: inline-block;
-            transition: transform 0.5s;
-        }
-        .dice.rolling {
-            transform: rotate(360deg) scale(1.2);
-        }
-        .roll-btn {
+        button {
             background: #28a745;
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 15px 25px;
             font-size: 18px;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 20px;
         }
-        .result-card {
-            margin-top: 30px;
-            padding: 20px;
-            background: #e9ecef;
-            border-radius: 8px;
-            display: none;
-            text-align: right;
-        }
-        .activity-title {
-            color: #007bff;
-            font-size: 20px;
-            margin-bottom: 10px;
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -84,82 +41,31 @@
 
 <div class="container">
     <h1>🎲 מה עושים עכשיו?</h1>
-    
-    <!-- אזור הסינונים -->
-    <div class="filters">
-        <button class="filter-btn active" data-category="all">הכל מהכל ✨</button>
-        <button class="filter-btn" data-category="home">בבית 🏠</button>
-        <button class="filter-btn" data-category="out">בחוץ 🌳</button>
-        <button class="filter-btn" data-category="energy">תנועה ומרץ ⚡</button>
-        <button class="filter-btn" data-category="quiet">שקט ורגע משחקי 🧩</button>
-        <button class="filter-btn" data-category="art">יצירה ודמיון 🎨</button>
-    </div>
-
-    <!-- אזור הקובייה -->
-    <div class="dice-section" onclick="rollDice()">
-        <div class="dice" id="diceElement">🎲</div>
-    </div>
-    <button class="roll-btn" onclick="rollDice()">הטל את הקובייה! 🎲</button>
-
-    <!-- תוצאה -->
-    <div class="result-card" id="resultCard">
-        <h2 class="activity-title" id="resTitle">שם הפעילות</h2>
-        <p id="resDesc">תיאור הפעילות יופיע כאן...</p>
-        <p><strong>מה צריך? 🎒:</strong> <span id="resMaterials">רשימת ציוד</span></p>
-        <p><strong>משך זמן ⏱️:</strong> <span id="resTime">כ-15 דקות</span></p>
-    </div>
+    <button onclick="rollDice()">הטל את הקובייה!</button>
+    <div class="result" id="resultBox">לחצי על הכפתור כדי לקבל 3 פעילויות</div>
 </div>
 
 <script>
-    // רשימת הפעילויות
     const activities = [
-        { title: "בניית מגדל קוביות ענק", desc: "לנסות לבנות מגדל גבוה ככל האפשר לפני שהוא נופל", materials: "קוביות משחק", time: "15 דקות", category: "home" },
-        { title: "ציור גואש חופשי", desc: "להוציא צבעים ולצייר על דף גדול בלי הגבלה", materials: "צבעי גואש ודפים", time: "30 דקות", category: "art" },
-        { title: "מסלול מכשולים בסלון", desc: "לארגן כריות ושרפרפים ולעבור אותם בלי לגעת ברצפה", materials: "כריות ושמיכות", time: "20 דקות", category: "energy" },
-        { title: "טיול קצר שכונתי", desc: "לצאת לסיבוב קצר לחפש חתולים או פרחים מעניינים", materials: "עגלות או נעלי הליכה", time: "25 דקות", category: "out" },
-        { title: "משחק התאמת צורות שקט", desc: "לשבת בשקט על השטיח ולסדר משחקי התאמה", materials: "משחק הרכבה", time: "15 דקות", category: "quiet" }
+        "בניית מגדל קוביות ענק 🏗️",
+        "ציור גואש חופשי 🎨",
+        "מסלול מכשולים בסלון 🏃‍♀️",
+        "טיול קצר שכונתי 🌳",
+        "משחק הרכבה שקט 🧩",
+        "סיפור משותף בספרייה 📚",
+        "ריקוד השירים האהובים 🎶"
     ];
 
-    let currentCategory = 'all';
-
-    // טיפול במסננים
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentCategory = btn.getAttribute('data-category');
-        });
-    });
-
     function rollDice() {
-        const dice = document.getElementById('diceElement');
-        const resultCard = document.getElementById('resultCard');
+        // ערבוב ובחירת 3 פעילויות שונות
+        const shuffled = [...activities].sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 3);
 
-        // סינון פעילויות לפי הקטגוריה שנבחרה
-        const filtered = currentCategory === 'all'
-            ? activities
-            : activities.filter(act => act.category === currentCategory);
+        // הצגה על המסך
+        document.getElementById('resultBox').innerHTML = 
+            "הנה 3 אפשרויות בשבילך:<br><br>" + selected.join('<br>✨ ');
+    }
+</script>
 
-        if (filtered.length === 0) {
-            alert('אין עדיין פעילויות בקטגוריה הזו, נסה להוסיף אחת או לבחור "הכל מהכל"');
-            return;
-        }
-
-        // אנימציית סיבוב
-        dice.classList.add('rolling');
-        resultCard.style.display = 'none';
-
-        setTimeout(() => {
-            dice.classList.remove('rolling');
-
-            // בחירת 3 אפשרויות שונות בבת אחת
-            const howMany = Math.min(3, filtered.length);
-            const shuffled = [...filtered].sort(() => 0.5 - Math.random());
-            const selectedItems = shuffled.slice(0, howMany);
-
-            // הצגת התוצאות המשולבות
-            document.getElementById('resTitle').innerText = selectedItems.map(i => i.title).join(' | ');
-            document.getElementById('resDesc').innerText = selectedItems.map(i => `${i.title}: ${i.desc}`).join('\n---\n');
-            document.getElementById('resMaterials').innerText = selectedItems.map(i => i.materials).join(', ');
-            document.getElementById('resTime
+</body>
+</html>
