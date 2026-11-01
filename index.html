@@ -121,7 +121,7 @@
         { title: "ציור גואש חופשי", desc: "להוציא צבעים ולצייר על דף גדול בלי הגבלה", materials: "צבעי גואש ודפים", time: "30 דקות", category: "art" },
         { title: "יצירה בלגו או פלסטלינה", desc: "להמציא דמויות או מבנים מיוחדים מחומרים שיש בבית", materials: "לגו או פלסטלינה", time: "20 דקות", category: "art" },
         { title: "גיזור הדבקה ויצירת ספר קומיקס", desc: "לקפל דפים ולספר סיפור עם ציורים וגזירים", materials: "דפים, מספריים ודבק", time: "30 דקות", category: "art" },
-        { title: "הכנת כתרים נוצצים", desc: "לגזור בריסטול בצורת כתר وלקשט במדבקות ונצנצים", materials: "בריסטול ומדבקות", time: "20 דקות", category: "art" },
+        { title: "הכנת כתרים נוצצים", desc: "לגזור בריסטול בצורת כתר ולקשט במדבקות ונצנצים", materials: "בריסטול ומדבקות", time: "20 דקות", category: "art" },
 
         // תנועה ומרץ
         { title: "מסלול מכשולים בסלון", desc: "לארגן כריות ושרפרפים ולעבור אותם בלי לגעת ברצפה", materials: "כריות ושמיכות", time: "20 דקות", category: "energy" },
@@ -158,7 +158,7 @@
         const resultCard = document.getElementById('resultCard');
 
         const filtered = currentCategory === 'all'
-            ? activities
+            ? [...activities]
             : activities.filter(act => act.category === currentCategory);
 
         if (filtered.length === 0) {
@@ -172,10 +172,14 @@
         setTimeout(() => {
             dice.classList.remove('rolling');
 
+            // ערבוב אמיתי וחזק (Fisher-Yates) שמוודא שנקבל בכל פעם תוצאות שונות לגמרי
+            for (let i = filtered.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
+            }
+
             const howMany = Math.min(3, filtered.length);
-            // מערבב את המערך באופן אקראי אמיתי לחלוטין בכל לחיצה
-            const shuffled = [...filtered].sort(() => Math.random() - 0.5);
-            const selectedItems = shuffled.slice(0, howMany);
+            const selectedItems = filtered.slice(0, howMany);
 
             let htmlContent = `<h3 style='margin-top:0; color:#333;'>✨ הנה ${howMany} אפשרויות חדשות בשבילך:</h3>`;
             selectedItems.forEach((item, index) => {
